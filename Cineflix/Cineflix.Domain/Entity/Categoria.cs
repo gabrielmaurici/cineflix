@@ -1,4 +1,6 @@
-﻿namespace Cineflix.Domain.Entity
+﻿using System.Collections.Generic;
+
+namespace Cineflix.Domain.Entity
 {
     public class Categoria
     {
@@ -6,5 +8,6 @@
 
         public int Id { get; set; }
         public string Nome { get; set; }
+        //public virtual List<Filme> Filmes { get; set; }
     }
 }

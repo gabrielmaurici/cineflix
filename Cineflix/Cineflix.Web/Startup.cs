@@ -10,6 +10,7 @@ using Cineflix.Domain.Repository;
 using Cineflix.Infra.Repository;
 using Cineflix.Domain.Service;
 using Cineflix.Infra.Service;
+using System.Text.Json.Serialization;
 
 namespace Cineflix.Web
 {
@@ -25,9 +26,16 @@ namespace Cineflix.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //    .AddJsonOptions(x =>
+            //    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve
+            //);
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<ISalaRepository, SalaRepository>();
+            services.AddScoped<ISalaService, SalaService>();
+            services.AddScoped<IFilmeRepository, FilmeRepository>();
+            services.AddScoped<IFilmeService, FilmeService>();
             
             services.AddDbContext<CineflixContext>(opts => 
                 opts.UseMySQL(Configuration.GetConnectionString("MySqlDb"))

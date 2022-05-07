@@ -25,9 +25,9 @@ namespace Cineflix.Web.Controllers
                 var resultado = await _usuarioService.CadastraUsuario(model);
 
                 if (!resultado.Sucesso)
-                    return Conflict(resultado);
+                    return Conflict(resultado.Mensagem);
 
-                return Ok(resultado);
+                return Ok(resultado.Modelo);
             }
             catch (Exception ex)
             {

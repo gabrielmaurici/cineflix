@@ -10,6 +10,6 @@ namespace Cineflix.Domain.Models
     {
         public bool Sucesso { get; set; }
         public T Modelo { get; set; }
-        public string Menssagem { get; set; }
+        public string Mensagem { get; set; }
     }
 }

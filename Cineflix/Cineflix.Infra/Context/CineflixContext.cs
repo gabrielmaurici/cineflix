@@ -22,6 +22,6 @@ namespace Cineflix.Infra.Context
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Sala> Salas { get; set; }
         public DbSet<Categoria> Cateogrias { get; set; }
-        public DbSet<Filme> Filmes{ get; set; }
+        public DbSet<Filme> Filmes { get; set; }
     }
 }

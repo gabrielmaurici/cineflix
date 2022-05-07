@@ -29,6 +29,11 @@ namespace Cineflix.Infra.Mapping
             builder.Property(x => x.IdCategoria)
                 .HasColumnName("IdCategoria")
                 .HasColumnType("int");
+
+            builder.HasOne(x => x.Categoria)
+                //.WithMany(x => x.Filmes)
+                .WithMany()
+                .HasForeignKey(x => x.IdCategoria);
         }
     }
 }

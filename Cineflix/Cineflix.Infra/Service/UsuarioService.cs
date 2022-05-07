@@ -26,10 +26,10 @@ namespace Cineflix.Infra.Service
                     .CriptografaSenha(model.Senha);
 
                 if(await _usuarioRepository.VerificaUsuarioExiste(model.Documento))
-                    return new TypeResult<int> { Sucesso = false, Modelo = 0, Menssagem = "Usuário já existente" };
+                    return new TypeResult<int> { Sucesso = false, Mensagem = "Usuário já existente" };
 
                 if (await _usuarioRepository.VerificaSenhaExiste(senhaCriptografada))
-                    return new TypeResult<int> { Sucesso = false, Modelo = 0, Menssagem = "Senha já existente, tente outra combinação" };
+                    return new TypeResult<int> { Sucesso = false, Mensagem = "Senha já existente, tente outra combinação" };
 
                 var usuario = new Usuario();
                 usuario.CriarUsuario(model.Documento, senhaCriptografada, model.Nome);
@@ -40,7 +40,7 @@ namespace Cineflix.Infra.Service
             }
             catch (Exception ex)
             {
-                return new TypeResult<int> { Sucesso = false, Modelo = 0, Menssagem = ex.Message };
+                return new TypeResult<int> { Sucesso = false, Mensagem = ex.Message };
             }
         }
     }

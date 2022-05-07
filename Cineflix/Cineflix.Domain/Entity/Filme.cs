@@ -10,6 +10,6 @@
         public string Descricao { get; set; }
         public short Duracao { get; set; }
         public int IdCategoria { get; set; }
-        public Categoria Categoria { get; set; }
+        public virtual Categoria Categoria { get; set; }
     }
 }
