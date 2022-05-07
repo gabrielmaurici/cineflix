@@ -21,7 +21,7 @@ namespace Cineflix.Web.Controllers
         {
             var resultado = await _usuarioService.CadastraUsuario(model);
 
-            if (resultado == 0)
+            if (!resultado.Sucesso)
                 return NotFound("Falha ao cadastrar usuário");
 
             return Ok(resultado);

@@ -1,4 +1,5 @@
 ﻿using Cineflix.Domain;
+using Cineflix.Domain.Cryptography;
 using Cineflix.Domain.Dto;
 using Cineflix.Domain.Models;
 using Cineflix.Domain.Repository;
@@ -21,10 +22,13 @@ namespace Cineflix.Infra.Service
         {
             try
             {
-                //Validar se usuário já existe.
+                var senhaCriptografada = new CriptografiaService()
+                    .CriptografaSenha(model.Senha);
+
+                //Validar se usuário ou senha já existem.
 
                 var usuario = new Usuario();
-                usuario.CriarUsuario(model.Documento, model.Senha, model.Nome);
+                usuario.CriarUsuario(model.Documento, senhaCriptografada, model.Nome);
 
                 var idUsuario = await _usuarioRepository.CadastraUsuario(usuario);
 
