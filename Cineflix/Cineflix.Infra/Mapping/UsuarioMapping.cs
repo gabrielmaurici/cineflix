@@ -8,24 +8,24 @@ namespace Cineflix.Infra.Mapping
     {
         public void Configure(EntityTypeBuilder<Usuario> builder)
         {
-            builder.ToTable("usuario");
+            builder.ToTable("Usuario");
 
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Documento)
                 .HasColumnName("Documento")
                 .HasColumnType("varchar")
-                .HasMaxLength(14);
+                .HasMaxLength(Usuario.DOCUMENTO_MAX);
 
             builder.Property(x => x.Nome)
                 .HasColumnName("Nome")
                 .HasColumnType("varchar")
-                .HasMaxLength(60);
+                .HasMaxLength(Usuario.NOME_MAX);
 
             builder.Property(x => x.Senha)
                 .HasColumnName("Senha")
                 .HasColumnType("varchar")
-                .HasMaxLength(20);
+                .HasMaxLength(Usuario.SENHA_MAX);
         }
     }
 }
