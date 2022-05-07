@@ -17,8 +17,8 @@ namespace Cineflix.Infra.Mapping
                 .HasColumnType("varchar")
                 .HasMaxLength(Categoria.NOME_MAX);
 
-            //builder.HasMany(x => x.Filmes)
-            //    .WithOne();
+            builder.HasMany(x => x.Filmes)
+                .WithOne();
         }
     }
 }

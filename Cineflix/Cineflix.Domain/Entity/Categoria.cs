@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Cineflix.Domain.Entity
 {
@@ -8,6 +9,7 @@ namespace Cineflix.Domain.Entity
 
         public int Id { get; set; }
         public string Nome { get; set; }
-        //public virtual List<Filme> Filmes { get; set; }
+        [JsonIgnore]
+        public virtual List<Filme> Filmes { get; set; }
     }
 }

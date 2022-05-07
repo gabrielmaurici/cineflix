@@ -10,7 +10,6 @@ using Cineflix.Domain.Repository;
 using Cineflix.Infra.Repository;
 using Cineflix.Domain.Service;
 using Cineflix.Infra.Service;
-using System.Text.Json.Serialization;
 
 namespace Cineflix.Web
 {
@@ -26,6 +25,9 @@ namespace Cineflix.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //.AddJsonOptions(
+            //    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            //);
             //    .AddJsonOptions(x =>
             //    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve
             //);
