@@ -1,6 +1,7 @@
 ﻿using Cineflix.Domain.Dto;
 using Cineflix.Domain.Service;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Cineflix.Web.Controllers
@@ -19,12 +20,19 @@ namespace Cineflix.Web.Controllers
         [HttpPost("CadastrarUsuario")]
         public async Task<IActionResult> CadastrarUsuario([FromBody] CadastraUsuarioDto model)
         {
-            var resultado = await _usuarioService.CadastraUsuario(model);
+            try
+            {
+                var resultado = await _usuarioService.CadastraUsuario(model);
 
-            if (!resultado.Sucesso)
-                return Conflict(resultado);
+                if (!resultado.Sucesso)
+                    return Conflict(resultado);
 
-            return Ok(resultado);
+                return Ok(resultado);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }
