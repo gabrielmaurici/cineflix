@@ -22,11 +22,11 @@ namespace Cineflix.Web.Controllers
         {
             try
             {
-                var retorno = await _salaService.BuscarSalas();
-                if(!retorno.Sucesso)
-                    return Conflict(retorno.Mensagem);
+                var resultado = await _salaService.BuscarSalas();
+                if(!resultado.Sucesso)
+                    return Conflict(resultado.Mensagem);
 
-                return Ok(retorno.Modelo);
+                return Ok(resultado.Modelo);
             }
             catch (Exception ex)
             {

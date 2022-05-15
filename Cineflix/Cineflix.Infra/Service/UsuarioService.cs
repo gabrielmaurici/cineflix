@@ -25,7 +25,7 @@ namespace Cineflix.Infra.Service
                 var senhaCriptografada = new CriptografiaService()
                     .CriptografaSenha(model.Senha);
 
-                if(await _usuarioRepository.VerificaUsuarioExiste(model.Documento))
+                if(await _usuarioRepository.VerificaDocumentoExiste(model.Documento))
                     return new TypeResult<int> { Sucesso = false, Mensagem = "Usuário já existente" };
 
                 if (await _usuarioRepository.VerificaSenhaExiste(senhaCriptografada))

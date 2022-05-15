@@ -25,12 +25,6 @@ namespace Cineflix.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            //.AddJsonOptions(
-            //    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            //);
-            //    .AddJsonOptions(x =>
-            //    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve
-            //);
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IUsuarioService, UsuarioService>();
@@ -38,6 +32,10 @@ namespace Cineflix.Web
             services.AddScoped<ISalaService, SalaService>();
             services.AddScoped<IFilmeRepository, FilmeRepository>();
             services.AddScoped<IFilmeService, FilmeService>();
+            services.AddScoped<ISessaoRepository, SessaoRepository>();
+            services.AddScoped<ISessaoService, SessaoService>();
+            services.AddScoped<IIngressoRepository, IngressoRepository>();
+            services.AddScoped<IIngressoService, IngressoService>();
             
             services.AddDbContext<CineflixContext>(opts => 
                 opts.UseMySQL(Configuration.GetConnectionString("MySqlDb"))

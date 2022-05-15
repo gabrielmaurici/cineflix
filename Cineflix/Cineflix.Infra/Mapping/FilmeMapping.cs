@@ -32,7 +32,6 @@ namespace Cineflix.Infra.Mapping
 
             builder.HasOne(x => x.Categoria)
                 .WithMany(x => x.Filmes)
-                //.WithMany()
                 .HasForeignKey(x => x.IdCategoria);
         }
     }

@@ -17,11 +17,15 @@ namespace Cineflix.Infra.Context
             modelBuilder.ApplyConfiguration(new SalaMapping());
             modelBuilder.ApplyConfiguration(new CategoriaMapping());
             modelBuilder.ApplyConfiguration(new FilmeMapping());
+            modelBuilder.ApplyConfiguration(new SessaoMapping());
+            modelBuilder.ApplyConfiguration(new IngressoMapping());
         }
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Sala> Salas { get; set; }
         public DbSet<Categoria> Cateogrias { get; set; }
         public DbSet<Filme> Filmes { get; set; }
+        public DbSet<Sessao> Sessoes { get; set; }
+        public DbSet<Ingresso> Ingressos { get; set; }
     }
 }

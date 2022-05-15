@@ -5,7 +5,9 @@ namespace Cineflix.Domain.Repository
     public interface IUsuarioRepository
     {
         Task<int> CadastraUsuario(Usuario model);
-        Task<bool> VerificaUsuarioExiste(string documento);
+        Task<Usuario> BuscaUsuarioPorDocumento(string documento);
+        Task<bool> VerificaDocumentoExiste(string documento);
         Task<bool> VerificaSenhaExiste(string senhaHash);
+        Task<bool> VerificaUsuarioExistePorId(int id);
     }
 }
