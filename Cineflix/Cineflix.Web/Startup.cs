@@ -10,6 +10,7 @@ using Cineflix.Domain.Repository;
 using Cineflix.Infra.Repository;
 using Cineflix.Domain.Service;
 using Cineflix.Infra.Service;
+using Cineflix.Domain.Mapping;
 
 namespace Cineflix.Web
 {
@@ -36,7 +37,9 @@ namespace Cineflix.Web
             services.AddScoped<ISessaoService, SessaoService>();
             services.AddScoped<IIngressoRepository, IngressoRepository>();
             services.AddScoped<IIngressoService, IngressoService>();
-            
+
+            services.AddAutoMapper(typeof(MappingProfile));
+
             services.AddDbContext<CineflixContext>(opts => 
                 opts.UseMySQL(Configuration.GetConnectionString("MySqlDb"))
             );

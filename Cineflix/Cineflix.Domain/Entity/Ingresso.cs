@@ -22,6 +22,5 @@ namespace Cineflix.Domain.Entity
         public DateTime DataCompra { get; private set; }
         public virtual Usuario Usuario { get; private set; }
         public virtual Sessao Sessao { get; private set; }
-
     }
 }

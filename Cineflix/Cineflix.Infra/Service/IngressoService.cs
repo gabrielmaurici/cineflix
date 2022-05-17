@@ -1,4 +1,5 @@
-﻿using Cineflix.Domain.Dto;
+﻿using AutoMapper;
+using Cineflix.Domain.Dto;
 using Cineflix.Domain.Entity;
 using Cineflix.Domain.Models;
 using Cineflix.Domain.Repository;
@@ -13,11 +14,13 @@ namespace Cineflix.Infra.Service
     {
         private readonly IIngressoRepository _ingressoRepository;
         private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IMapper _mapper;
 
-        public IngressoService(IIngressoRepository ingressoRepository, IUsuarioRepository usuarioRepository)
+        public IngressoService(IIngressoRepository ingressoRepository, IUsuarioRepository usuarioRepository, IMapper mapper)
         {
             _ingressoRepository = ingressoRepository;
             _usuarioRepository = usuarioRepository;
+            _mapper = mapper;
         }
 
         public async Task<TypeResult<int>> GerarIngresso(GeraIngressoDto model)
@@ -40,25 +43,38 @@ namespace Cineflix.Infra.Service
             }
         }
 
-        // Tratar retorno para não mostrar dados sensíveis de cliente
-        public async Task<TypeResult<List<Ingresso>>> BuscarIngressosPorDocumento(string documento)
+        public async Task<TypeResult<List<RetornoIngressoUsuarioDto>>> BuscarIngressosPorDocumento(string documento)
         {
             try
             {
                 var usuario = await _usuarioRepository.BuscaUsuarioPorDocumento(documento);
                 if(usuario == null)
-                    return new TypeResult<List<Ingresso>> { Sucesso = false, Mensagem = "Usuário não encontrado" };
+                    return new TypeResult<List<RetornoIngressoUsuarioDto>> { Sucesso = false, Mensagem = "Usuário não encontrado" };
 
                 var ingressos = await _ingressoRepository.BuscarIngressosPorIdUsuario(usuario.Id);
                 if(ingressos.Count <= 0)
-                    return new TypeResult<List<Ingresso>> { Sucesso = false, Mensagem = "Não foram encontrados ingressos para este usuário"};
+                    return new TypeResult<List<RetornoIngressoUsuarioDto>> { Sucesso = false, Mensagem = "Não foram encontrados ingressos para este usuário"};
 
-                return new TypeResult<List<Ingresso>> { Sucesso = true, Modelo = ingressos };
+                var ingressosRetorno = TrataRetornoIngressos(ingressos);
+
+                return new TypeResult<List<RetornoIngressoUsuarioDto>> { Sucesso = true, Modelo = ingressosRetorno };
             }
             catch (Exception ex)
             {
-                return new TypeResult<List<Ingresso>> { Sucesso = false, Mensagem = ex.Message };
+                return new TypeResult<List<RetornoIngressoUsuarioDto>> { Sucesso = false, Mensagem = ex.Message };
             }
+        }
+
+        private List<RetornoIngressoUsuarioDto> TrataRetornoIngressos(List<Ingresso> ingressos)
+        {
+            var lista = new List<RetornoIngressoUsuarioDto>();
+
+            foreach (var ingresso in ingressos)
+            {
+                lista.Add(_mapper.Map<RetornoIngressoUsuarioDto>(ingresso));
+            }
+
+            return lista;
         }
     }
 }
