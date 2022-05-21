@@ -20,6 +20,11 @@ namespace Cineflix.Infra.Repository
             return await _context.Usuarios.FirstOrDefaultAsync(x => x.Documento.Equals(documento));
         }
 
+        public async Task<Usuario> BuscaUsuarioPorId(int id)
+        {
+            return await _context.Usuarios.FindAsync(id);
+        }
+
         public async Task<int> CadastraUsuario(Usuario model)
         {
             await _context.AddAsync(model);

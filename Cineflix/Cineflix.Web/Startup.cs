@@ -37,6 +37,7 @@ namespace Cineflix.Web
             services.AddScoped<ISessaoService, SessaoService>();
             services.AddScoped<IIngressoRepository, IngressoRepository>();
             services.AddScoped<IIngressoService, IngressoService>();
+            services.AddScoped<EmailService>();
 
             services.AddAutoMapper(typeof(MappingProfile));
 

@@ -10,5 +10,6 @@ namespace Cineflix.Domain.Service
     {
         Task<TypeResult<int>> GerarIngresso(GeraIngressoDto model);
         Task<TypeResult<List<RetornoIngressoUsuarioDto>>> BuscarIngressosPorDocumento(string documento);
+        Task<TypeResult<RetornoIngressoUsuarioDto>> BuscarIngressoPorId(int id);
     }
 }

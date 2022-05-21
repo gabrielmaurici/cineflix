@@ -26,6 +26,11 @@ namespace Cineflix.Infra.Mapping
                 .HasColumnName("Senha")
                 .HasColumnType("varchar")
                 .HasMaxLength(Usuario.SENHA_MAX);
+
+            builder.Property(x => x.Email)
+                .HasColumnName("Email")
+                .HasColumnType("varchar")
+                .HasMaxLength(Usuario.EMAIL_MAX);
         }
     }
 }

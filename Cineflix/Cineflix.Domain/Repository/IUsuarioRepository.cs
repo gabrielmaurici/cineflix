@@ -6,6 +6,7 @@ namespace Cineflix.Domain.Repository
     {
         Task<int> CadastraUsuario(Usuario model);
         Task<Usuario> BuscaUsuarioPorDocumento(string documento);
+        Task<Usuario> BuscaUsuarioPorId(int id);
         Task<bool> VerificaDocumentoExiste(string documento);
         Task<bool> VerificaSenhaExiste(string senhaHash);
         Task<bool> VerificaUsuarioExistePorId(int id);

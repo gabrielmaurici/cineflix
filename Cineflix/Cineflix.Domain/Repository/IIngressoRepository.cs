@@ -8,5 +8,6 @@ namespace Cineflix.Domain.Repository
     {
         Task<int> GerarIngresso(Ingresso model);
         Task<List<Ingresso>> BuscarIngressosPorIdUsuario(int idUsuario);
+        Task<Ingresso> BuscarIngressoPorId(int id);
     }
 }

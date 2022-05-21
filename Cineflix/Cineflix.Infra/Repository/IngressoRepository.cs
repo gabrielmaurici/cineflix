@@ -27,13 +27,21 @@ namespace Cineflix.Infra.Repository
 
         public async Task<List<Ingresso>> BuscarIngressosPorIdUsuario(int idUsuario)
         {
-            return await _context.Ingressos.Include(x => x.Usuario)
+            return await _context.Ingressos
+                .Where(x => x.IdUsuario == idUsuario)
+                .Include(x => x.Usuario)
                 .Include(x => x.Sessao)
                 .ThenInclude(x => x.Filme.Categoria)
-                .Where(x => x.IdUsuario == idUsuario)
                 .OrderByDescending(x => x.Id)
                 .ToListAsync();
         }
+
+        public async Task<Ingresso> BuscarIngressoPorId(int id)
+        {
+            return await _context.Ingressos
+                .Include(x => x.Usuario)
+                .Include(x => x.Sessao.Filme)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }
-

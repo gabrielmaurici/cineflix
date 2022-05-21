@@ -14,12 +14,16 @@ namespace Cineflix.Infra.Service
     {
         private readonly IIngressoRepository _ingressoRepository;
         private readonly IUsuarioRepository _usuarioRepository;
+        private readonly EmailService _emailService;
         private readonly IMapper _mapper;
 
-        public IngressoService(IIngressoRepository ingressoRepository, IUsuarioRepository usuarioRepository, IMapper mapper)
+        public IngressoService(IIngressoRepository ingressoRepository, IUsuarioRepository usuarioRepository,
+            EmailService emailService, IMapper mapper
+        )
         {
             _ingressoRepository = ingressoRepository;
             _usuarioRepository = usuarioRepository;
+            _emailService = emailService;
             _mapper = mapper;
         }
 
@@ -34,12 +38,37 @@ namespace Cineflix.Infra.Service
                 var ingresso = new Ingresso(model.IdUsuario, model.IdSessao,model.TipoEntrada, model.Valor);
 
                 var idIngresso = await _ingressoRepository.GerarIngresso(ingresso);
+                if (idIngresso < 0)
+                    return new TypeResult<int>() { Sucesso = false, Mensagem = "Ocorreu algum erro ao gravar ingresso, tente novamente!" };
+
+               
+                var enviaEmailRetorno = await EnviaIngressoPorEmail(idIngresso);
+                if (!enviaEmailRetorno)
+                    return new TypeResult<int>() { Sucesso = false, Mensagem = "Ocorreu algum erro no envio de email do ingresso, tente novamente!" };
 
                 return new TypeResult<int> { Sucesso = true, Modelo = idIngresso };
             }
             catch (Exception ex)
             {
                 return new TypeResult<int> { Sucesso = false, Mensagem = ex.Message };
+            }
+        }
+
+        public async Task<TypeResult<RetornoIngressoUsuarioDto>> BuscarIngressoPorId(int id)
+        {
+            try
+            {
+                var ingresso = await _ingressoRepository.BuscarIngressoPorId(id);
+                if (ingresso == null)
+                    return new TypeResult<RetornoIngressoUsuarioDto> { Sucesso = false, Mensagem = "Não foi possível encontrar um ingresso com esse Id" };
+
+                var ingressoTratado = _mapper.Map<RetornoIngressoUsuarioDto>(ingresso);
+
+                return new TypeResult<RetornoIngressoUsuarioDto> { Sucesso = true, Modelo = ingressoTratado };
+            }
+            catch (Exception ex)
+            {
+                return new TypeResult<RetornoIngressoUsuarioDto> { Sucesso = false, Mensagem = ex.Message };
             }
         }
 
@@ -63,6 +92,18 @@ namespace Cineflix.Infra.Service
             {
                 return new TypeResult<List<RetornoIngressoUsuarioDto>> { Sucesso = false, Mensagem = ex.Message };
             }
+        }
+       
+        private async Task<bool> EnviaIngressoPorEmail(int idIngresso)
+        {
+            var ingresso = await _ingressoRepository.BuscarIngressoPorId(idIngresso);
+
+            var criaEmail = new EmailCriacaoIngresso(ingresso);
+            var enviaEmailRetorno = await _emailService.EnviaEmail(criaEmail);
+            if (!enviaEmailRetorno)
+                return false;
+
+            return true;
         }
 
         private List<RetornoIngressoUsuarioDto> TrataRetornoIngressos(List<Ingresso> ingressos)
