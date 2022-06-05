@@ -20,9 +20,9 @@ namespace Cineflix.Infra.Service
             var apiKey = _configuration.GetSection("API_KEY_SENDGRID").Value;
             var client = new SendGridClient(apiKey);
             var remetente = new EmailAddress("dev.integra.testes@gmail.com", "Dev Testes");
-            
+
             var msg = MailHelper.CreateSingleEmail(remetente, email.Destinatario,
-                email.Assunto, email.SubAssunto,email.Conteudo);
+                email.Assunto, "", email.Conteudo);
 
             var response = await client.SendEmailAsync(msg);
             
