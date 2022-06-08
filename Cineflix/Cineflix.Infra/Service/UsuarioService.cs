@@ -13,20 +13,21 @@ namespace Cineflix.Infra.Service
     public class UsuarioService : IUsuarioService
     {
         private readonly IUsuarioRepository _usuarioRepository;
+        private readonly CriptografiaService _criptografiaService;
         private readonly EmailService _emailService;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository, EmailService emailService)
+        public UsuarioService(IUsuarioRepository usuarioRepository, EmailService emailService, CriptografiaService criptografiaService)
         {
             _usuarioRepository = usuarioRepository;
             _emailService = emailService;
+            _criptografiaService = criptografiaService;
         }
 
         public async Task<TypeResult<int>> CadastraUsuario(CadastraUsuarioDto model)
         {
             try
             {
-                var senhaCriptografada = new CriptografiaService()
-                    .CriptografaSenha(model.Senha);
+                var senhaCriptografada = _criptografiaService.CriptografaSenha(model.Senha);
 
                 if(await _usuarioRepository.VerificaDocumentoExiste(model.Documento))
                     return new TypeResult<int> { Sucesso = false, Mensagem = "Usuário já existente" };

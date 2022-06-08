@@ -33,7 +33,7 @@ namespace Cineflix.Web.Controllers
             }
         }
 
-        [HttpGet("BuscarSessaoPorid/{id}")]
+        [HttpGet("BuscarSessaoPorId/{id}")]
         public async Task<IActionResult> BuscarSessaoPorId(int id)
         {
             try

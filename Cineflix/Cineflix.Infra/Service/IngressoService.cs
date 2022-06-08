@@ -40,7 +40,6 @@ namespace Cineflix.Infra.Service
                 var idIngresso = await _ingressoRepository.GerarIngresso(ingresso);
                 if (idIngresso < 0)
                     return new TypeResult<int>() { Sucesso = false, Mensagem = "Ocorreu algum erro ao gravar ingresso, tente novamente!" };
-
                
                 var enviaEmailRetorno = await EnviaIngressoPorEmail(idIngresso);
                 if (!enviaEmailRetorno)

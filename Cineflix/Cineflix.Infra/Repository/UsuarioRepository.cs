@@ -1,7 +1,9 @@
 ﻿using Cineflix.Domain;
+using Cineflix.Domain.Dto;
 using Cineflix.Domain.Repository;
 using Cineflix.Infra.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cineflix.Infra.Repository
@@ -36,6 +38,14 @@ namespace Cineflix.Infra.Repository
         public async Task<bool> VerificaDocumentoExiste(string documento)
         {
             return await _context.Usuarios.AnyAsync(x => x.Documento.Equals(documento));
+        }
+
+        public async Task<int> VerificaLoginUsuario(LoginDto model)
+        {
+            return await _context.Usuarios
+                .Where(x => x.Documento.Equals(model.Documento) && x.Senha.Equals(model.Senha))
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<bool> VerificaSenhaExiste(string senhaHash)

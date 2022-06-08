@@ -21,23 +21,5 @@ namespace Cineflix.Domain.Cryptography
                 return sBuilder.ToString();
             }
         }
-
-        //public bool VerificaSenha(string senhaGravada, string senhaInput)
-        //{
-        //    using (MD5 md5Hash = MD5.Create())
-        //    {
-        //        var senha = CriptografaSenha(senhaGravada);
-        //        StringComparer compara = StringComparer.OrdinalIgnoreCase;
-
-        //        if (0 == compara.Compare(senha, senhaInput))
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //}
     }
 }

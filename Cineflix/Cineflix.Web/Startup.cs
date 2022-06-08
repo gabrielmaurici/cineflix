@@ -11,6 +11,7 @@ using Cineflix.Infra.Repository;
 using Cineflix.Domain.Service;
 using Cineflix.Infra.Service;
 using Cineflix.Domain.Mapping;
+using Cineflix.Domain.Cryptography;
 
 namespace Cineflix.Web
 {
@@ -29,14 +30,12 @@ namespace Cineflix.Web
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IUsuarioService, UsuarioService>();
-            services.AddScoped<ISalaRepository, SalaRepository>();
-            services.AddScoped<ISalaService, SalaService>();
-            services.AddScoped<IFilmeRepository, FilmeRepository>();
-            services.AddScoped<IFilmeService, FilmeService>();
             services.AddScoped<ISessaoRepository, SessaoRepository>();
             services.AddScoped<ISessaoService, SessaoService>();
             services.AddScoped<IIngressoRepository, IngressoRepository>();
             services.AddScoped<IIngressoService, IngressoService>();
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<CriptografiaService>();
             services.AddScoped<EmailService>();
 
             services.AddAutoMapper(typeof(MappingProfile));

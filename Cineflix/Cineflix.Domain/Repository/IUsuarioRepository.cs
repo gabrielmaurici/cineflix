@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Cineflix.Domain.Dto;
+using System.Threading.Tasks;
 
 namespace Cineflix.Domain.Repository
 {
@@ -10,5 +11,6 @@ namespace Cineflix.Domain.Repository
         Task<bool> VerificaDocumentoExiste(string documento);
         Task<bool> VerificaSenhaExiste(string senhaHash);
         Task<bool> VerificaUsuarioExistePorId(int id);
+        Task<int> VerificaLoginUsuario(LoginDto model);
     }
 }
